@@ -1,0 +1,488 @@
+﻿@using ClubSystem.Models;
+@{
+    ViewBag.Title = "UserAcList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    function func() {
+        //获取被选中的option标签
+        var vs = $('select option:selected').val();
+        if (vs == "审核中……")
+        {
+            document.getElementById('grid1').style.display='table';
+            document.getElementById('grid2').style.display='none';
+            document.getElementById('grid3').style.display='none';
+            document.getElementById('grid4').style.display='none';
+            document.getElementById('grid5').style.display='none';
+        }else if(vs == "审核未通过")
+        {
+            document.getElementById('grid1').style.display='none';
+            document.getElementById('grid2').style.display='table';
+            document.getElementById('grid3').style.display='none';
+            document.getElementById('grid4').style.display='none';
+            document.getElementById('grid5').style.display='none';
+        }else if(vs == "经费汇报")
+        {
+            document.getElementById('grid1').style.display='none';
+            document.getElementById('grid2').style.display='none';
+            document.getElementById('grid3').style.display='table';
+            document.getElementById('grid4').style.display='none';
+            document.getElementById('grid5').style.display='none';
+        }else if(vs == "活动成功结束")
+        {
+            document.getElementById('grid1').style.display='none';
+            document.getElementById('grid2').style.display='none';
+            document.getElementById('grid3').style.display='none';
+            document.getElementById('grid4').style.display='table';
+            document.getElementById('grid5').style.display='none';
+        }else if(vs == "待转账")
+        {
+            document.getElementById('grid1').style.display='none';
+            document.getElementById('grid2').style.display='none';
+            document.getElementById('grid3').style.display='none';
+            document.getElementById('grid4').style.display='none';
+            document.getElementById('grid5').style.display='table';
+        }
+    }
+</script>
+<link rel="stylesheet" type="text/css" href="../../Content/metronic/assets/global/css/components-rounded.css">
+
+<!-- BEGIN 数据查询-->
+<div class="portlet box green-meadow">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="am-icon-filter"></i>
+            活动列表
+        </div>
+        <div class="tools">
+            <select style="width:200px;" onchange="func()" data-am-selected="{searchBox: 1}">
+                <option id="shenhe" value="审核中……">审核中</option>
+                <option id="examine" value="审核未通过">审核未通过</option>
+                <option id="money" value="经费汇报">经费汇报</option>
+                <option id="waitmoney" value="待转账">待转账</option>
+                <option id="csuccess" value="活动成功结束">活动成功结束</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="portlet-body flip-scroll">
+        <div class="portlet-body">
+            @*<div>
+                    <span>共有记录：</span><span id='totalCount' class="label label-success">0</span>条。
+                </div>*@
+            <hr />
+            <!--审核中-->
+            <table id="grid1" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead id="grid_head">
+                    <tr>
+                        <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                        <th>活动主题</th>
+                        <th>活动时间</th>
+                        <th>活动地点</th>
+                        <th>预计经费</th>
+                        <th>社团剩余经费</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    @{
+                        if (true)
+                        {
+                            t_f_User user = Session["user"] as t_f_User;
+                            int userid1 = user.ID;
+                            var db = new ClusDBEntities();
+                            var root = (from a in db.t_f_activity
+                                        join b in db.t_f_User on a.club_ID equals b.ID
+                                        where b.IsDelete == false && a.option3 == "审核中……" && b.ID == userid1
+                                        select new
+                                        {
+                                            acid = a.ID,//活动ID
+                                            actittle = a.tittle,//活动主题
+                                            option2 = a.option2,//活动时间
+                                            place = a.place,//活动地点
+                                            money = a.option1,//活动经费
+                                            lastmoney = b.option1, // 社团剩余经费
+                                            sarttime = a.starttime,//申请时间
+                                            option3 = a.option3,//活动状态
+                                        }).Distinct().OrderBy(ob => ob.acid).Take(50).ToList();
+                            foreach (var p in root)
+                            {
+                                <tr>
+                                    <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                    <th>@(p.actittle)</th>
+                                    <th>@(p.option2)</th>
+                                    <th>@(p.place)</th>
+                                    <th>@(p.money)</th>
+                                    <th>@(p.lastmoney)</th>
+                                    <th>@(p.option3)</th>
+                                    <th style="width:90px">
+                                    <a title="修改" onclick="Edit_Activity(@(p.acid))">
+                                        <i class="am-icon-pencil"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a title="取消活动" onclick="Delete_Activity(@(p.acid))">
+                                            <i class="am-icon-close"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    }
+                </thead>
+                <tbody id="grid_body"></tbody>
+            </table>
+            <!--审核未通过-->
+            <table style="display:none" id="grid2" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead id="grid_head">
+                    <tr>
+                        <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                        <th>活动主题</th>
+                        <th>活动时间</th>
+                        <th>活动地点</th>
+                        <th>预计经费</th>
+                        <th>社团剩余经费</th>
+                        <th>未通过原因</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    @{
+                        if (true)
+                        {
+                            t_f_User user = Session["user"] as t_f_User;
+                            int userid1 = user.ID;
+                            var db = new ClusDBEntities();
+                            var root = (from a in db.t_f_activity
+                                        join b in db.t_f_User on a.club_ID equals b.ID
+                                        where b.IsDelete == false && a.option3 == "审核未通过" && b.ID == userid1
+                                        select new
+                                        {
+                                            acid = a.ID,//活动ID
+                                            actittle = a.tittle,//活动主题
+                                            option2 = a.option2,//活动时间
+                                            place = a.place,//活动地点
+                                            money = a.option1,//活动经费
+                                            lastmoney = b.option1, // 社团剩余经费
+                                            sarttime = a.starttime,//申请时间
+                                            option4 = a.option4,//未通过原因
+                                            option3 = a.option3,//活动状态
+                                        }).Distinct().OrderBy(ob => ob.acid).Take(50).ToList();
+                            foreach (var p in root)
+                            {
+                                <tr>
+                                    <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                    <th>@(p.actittle)</th>
+                                    <th>@(p.option2)</th>
+                                    <th>@(p.place)</th>
+                                    <th>@(p.money)</th>
+                                    <th>@(p.lastmoney)</th>
+                                    <th>@(p.option4)</th>
+                                    <th>@(p.option3)</th>
+                                    <th style="width:90px">
+                                        <a title="修改" onclick="Edit_Activity(@(p.acid))">
+                                            <i class="am-icon-pencil"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a title="取消活动" onclick="Delete_Activity(@(p.acid))">
+                                            <i class="am-icon-close"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    }
+                </thead>
+                <tbody id="grid_body"></tbody>
+            </table>
+            <!--审核完成，待汇报经费-->
+            <table id="grid3" style="display:none" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead id="grid_head">
+                    <tr>
+                        <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                        <th>活动主题</th>
+                        <th>活动时间</th>
+                        <th>活动地点</th>
+                        <th>预计经费</th>
+                        <th>社团剩余经费</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    @{
+                        if (true)
+                        {
+                            t_f_User user = Session["user"] as t_f_User;
+                            int userid1 = user.ID;
+                            var db = new ClusDBEntities();
+                            var root = (from a in db.t_f_activity
+                                        join b in db.t_f_User on a.club_ID equals b.ID
+                                        where b.IsDelete == false && a.option3 == "审核完成，待汇报经费" && b.ID == userid1
+                                        select new
+                                        {
+                                            acid = a.ID,//活动ID
+                                            actittle = a.tittle,//活动主题
+                                            option2 = a.option2,//活动时间
+                                            place = a.place,//活动地点
+                                            money = a.option1,//活动经费
+                                            lastmoney = b.option1, // 社团剩余经费
+                                            sarttime = a.starttime,//申请时间
+                                            option3 = a.option3,//活动状态
+                                        }).Distinct().OrderBy(ob => ob.acid).Take(50).ToList();
+                            foreach (var p in root)
+                            {
+                                <tr>
+                                    <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                    <th>@(p.actittle)</th>
+                                    <th>@(p.option2)</th>
+                                    <th>@(p.place)</th>
+                                    <th>@(p.money)</th>
+                                    <th>@(p.lastmoney)</th>
+                                    <th>@(p.option3)</th>
+                                    <th style="width:90px">
+                                        <a title="添加消费详情" onclick="Add_Money(@(p.acid))">
+                                            <i class="am-icon-money"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a title="取消活动" onclick="Delete_Activity(@(p.acid))">
+                                            <i class="am-icon-close"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    }
+                </thead>
+                <tbody id="grid_body"></tbody>
+            </table>
+            <!--活动成功结束-->
+            <table id="grid4" style="display:none" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead id="grid_head">
+                    <tr>
+                        <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                        <th>活动主题</th>
+                        <th>活动时间</th>
+                        <th>活动地点</th>
+                        <th>预计经费</th>
+                        <th>社团剩余经费</th>
+                        <th>状态</th>
+                    </tr>
+                    @{
+                        if (true)
+                        {
+                            t_f_User user = Session["user"] as t_f_User;
+                            int userid1 = user.ID;
+                            var db = new ClusDBEntities();
+                            var root = (from a in db.t_f_activity
+                                        join b in db.t_f_User on a.club_ID equals b.ID
+                                        where b.IsDelete == false && a.option3 == "活动成功结束" && b.ID == userid1
+                                        select new
+                                        {
+                                            acid = a.ID,//活动ID
+                                            actittle = a.tittle,//活动主题
+                                            option2 = a.option2,//活动时间
+                                            place = a.place,//活动地点
+                                            money = a.option1,//活动经费
+                                            lastmoney = b.option1, // 社团剩余经费
+                                            sarttime = a.starttime,//申请时间
+                                            option3 = a.option3,//活动状态
+                                        }).Distinct().OrderBy(ob => ob.acid).Take(50).ToList();
+                            foreach (var p in root)
+                            {
+                                <tr>
+                                    <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                    <th><a onclick="newsback(@(p.acid))">@(p.actittle)</a></th>
+                                    <th>@(p.option2)</th>
+                                    <th>@(p.place)</th>
+                                    <th>@(p.money)</th>
+                                    <th>@(p.lastmoney)</th>
+                                    <th>@(p.option3)</th>
+                                </tr>
+                            }
+                        }
+                    }
+                </thead>
+                <tbody id="grid_body"></tbody>
+            </table>
+            <!--待转账-->
+            <table id="grid5" style="display:none" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead id="grid_head">
+                    <tr>
+                        <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                        <th>活动主题</th>
+                        <th>消费金额</th>
+                        <th>消费详情</th>
+                        <th>状态</th>
+                    </tr>
+                    @{
+                        if (true)
+                        {
+                            t_f_User user = Session["user"] as t_f_User;
+                            int userid1 = user.ID;
+                            var db = new ClusDBEntities();
+                            var root = (from a in db.t_f_activity
+                                        join b in db.t_f_User on a.club_ID equals b.ID
+                                        join c in db.t_f_finance on a.ID equals c.fi_type
+                                        where b.IsDelete == false && a.option3 == "待转账" && b.ID == userid1
+                                        select new
+                                        {
+                                            acid = a.ID,//活动ID
+                                            actittle = a.tittle,//活动主题
+                                            price = c.price,//消费金额
+                                            title = c.tittle,//消费详情
+                                            phone = b.MobilePhone,//支付宝账号
+                                            option3 = a.option3,//活动状态
+                                        }).Distinct().OrderBy(ob => ob.acid).Take(50).ToList();
+                            foreach (var p in root)
+                            {
+                                <tr>
+                                    <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                    <th>@(p.actittle)</th>
+                                    <th>@(p.price)</th>
+                                    <th><div><a href="~/@(p.title)">下载详情</a></div></th>
+                                    <th>@(p.option3)</th>
+                                </tr>
+                            }
+                        }
+                    }
+                </thead>
+                <tbody id="grid_body"></tbody>
+            </table>
+            <!--经费汇报未通过-->
+            <table id="grid6" style="display:none" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead id="grid_head">
+                    <tr>
+                        <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                        <th>活动主题</th>
+                        <th>活动时间</th>
+                        <th>活动地点</th>
+                        <th>预计经费</th>
+                        <th>社团剩余经费</th>
+                        <th>意见</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    @{
+                        if (true)
+                        {
+                            t_f_User user = Session["user"] as t_f_User;
+                            int userid1 = user.ID;
+                            var db = new ClusDBEntities();
+                            var root = (from a in db.t_f_activity
+                                        join b in db.t_f_User on a.club_ID equals b.ID
+                                        where b.IsDelete == false && a.option3 == "审核完成，待汇报经费" && b.ID == userid1
+                                        select new
+                                        {
+                                            acid = a.ID,//活动ID
+                                            actittle = a.tittle,//活动主题
+                                            option2 = a.option2,//活动时间
+                                            place = a.place,//活动地点
+                                            money = a.option1,//活动经费
+                                            lastmoney = b.option1, // 社团剩余经费
+                                            sarttime = a.starttime,//申请时间
+                                            option3 = a.option3,//活动状态
+                                            option5 = a.option5,//意见
+                                        }).Distinct().OrderBy(ob => ob.acid).Take(50).ToList();
+                            foreach (var p in root)
+                            {
+                                <tr>
+                                    <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                    <th>@(p.actittle)</th>
+                                    <th>@(p.option2)</th>
+                                    <th>@(p.place)</th>
+                                    <th>@(p.money)</th>
+                                    <th>@(p.lastmoney)</th>
+                                    <th>@(p.option5)</th>
+                                    <th>@(p.option3)</th>
+                                    <th style="width:90px">
+                                        <a title="修改消费详情" onclick="Add_Money1(@(p.acid))">
+                                            <i class="am-icon-money"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    }
+                </thead>
+                <tbody id="grid_body"></tbody>
+            </table>
+            <div class="paging-toolbar">
+                <ul id='grid_paging'></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END 数据查询-->
+
+<script type="text/javascript">
+    //修改活动
+    function Edit_Activity(id)
+    {
+        if (id == "") {
+            return;
+        }
+        else {
+            window.location.href = "/Activity/UserLiPage?id=" + id;
+        }
+    }
+    //取消活动
+    function Delete_Activity(id)
+    {
+        $.post("/Activity/CancelActivity/?clubid=" + id,
+                                                 function (result) {
+                                                     if (result.IsSucceed) {
+
+                                                         alert("提交成功！");
+                                                         window.location.href = "/Activity/UserAcList";
+                                                     }
+                                                     else {
+                                                         alert("服务器连接有误！！");
+                                                     }
+
+                                                 });
+    }
+    //已转账
+    function Had_Money(id)
+    {
+        $.post("/Activity/HadMoney/?clubid=" + id,
+                                                 function (result) {
+                                                     if (result.IsSucceed) {
+
+                                                         alert("提交成功！");
+                                                         window.location.href = "/Activity/UserAcList";
+                                                     }
+                                                     else {
+                                                         alert("服务器连接有误！！");
+                                                     }
+
+                                                 });
+    }
+    //转账驳回
+    function Back_Money(id)
+    {
+        var str = prompt("审核未通过原因");
+        $.post("/Activity/BackMoney/?clubid=" + $('#clubid').val()+ "&str="+str,
+                                             function (result) {
+                                                 if (result.IsSucceed) {
+                                                     alert("提交成功！");
+                                                     window.location.href = "/Activity/AdminAcList";
+                                                 }
+                                                 else {
+                                                     alert("服务器连接有误！！");
+                                                 }
+
+                                             });
+    }
+    //添加消费详单
+    function Add_Money(id)
+    {
+        if (id == "") {
+            return;
+        }
+        else {
+            window.location.href = "/Activity/AddMoneyList?id=" + id;
+        }
+    }
+    function newsback(id) {
+        if (id == "") {
+            return;
+        }
+        else {
+            window.location.href = "/Activity/AdminLiPage?id=" + id;
+        }
+    }
+</script>
+

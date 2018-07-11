@@ -1,0 +1,144 @@
+﻿@using ClubSystem.Models;
+@{
+    ViewBag.Title = "UserLiPage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+        $("#btnReturn").click(function () {
+            history.go(-1);
+        });
+    });
+    $(function () {
+        $("#SaveBtn").click(function () {
+            if ($("#clubtittle").val() == "") {
+                alert("请填写活动主题！");
+                return;
+            }
+            if ($("#clubtime").val() == "") {
+                alert("请填写活动时间！");
+                return;
+            }
+            if ($("#clubplace").val() == "") {
+                alert("请填写活动地点！");
+                return;
+            }
+            if ($("#cluboption1").val() == "") {
+                alert("请填写活动预计经费！");
+                return;
+            }
+            if ($("#clubform").val() == "") {
+                alert("请填写活动内容！");
+                return;
+            }
+            if (!confirm("您确认要提交吗？")) {
+                return;
+            }
+            var article = GetArticle();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;utf-8",
+                url: "/Activity/SaveUActivity",
+                data: "{json:'" + $.toJSON(article) + "'}",
+                dataType: "",
+                success: function (data, textStatus) {
+                    if (data == "success") {
+                        alert("保存成功！");
+                        window.location.href = "/Activity/UserAcList";
+                    }
+                    else {
+                        alert("保存失败！");
+                    }
+                },
+                complete: function (XMLHttpRequest, textStatus) {
+                    //HideLoading();
+                },
+                error: function (statusText, responseText) {
+                    //请求出错处理
+                    alert(statusText.responseText);
+                }
+            });
+        });
+    });
+
+    // 获取所有信息
+    function GetArticle() {
+        var article = new Object();
+        article.clubid = $("#clubid").val();
+        article.clubtittle = $("#clubtittle").val();
+        article.clubtime = $("#clubtime").val();
+        article.clubplace = $("#clubplace").val();
+        article.cluboption1 = $("#cluboption1").val();
+        article.clubform = $("#clubform").val();
+        return article;
+    }
+</script>
+@using (Html.BeginForm("UserLiPage", "Activity", FormMethod.Post))
+{
+    <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button id="btnReturn" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-arrow-left"></span> 返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--搜索栏start-->
+    <div class="portlet-title">
+        <div class="tpl-portlet-input tpl-fz-ml">
+            <div class="portlet-input input-small input-inline">
+                <div class="input-icon right">
+                    <i class="am-icon-search"></i>
+                    <input type="text" class="form-control form-control-solid" placeholder="搜索...">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--搜索栏end-->
+    <div class="am-form-group">
+        <label for="user-name" class="am-u-sm-3 am-form-label">活动主题</label>
+        <div class="am-u-sm-9">
+            <input style=" display:none;" type="text" id="clubid" value="@(ViewData["acid"])">
+            <input type="text" id="clubtittle" value="@(ViewData["actittle"])">
+            <small></small>
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-phone" class="am-u-sm-3 am-form-label">活动时间</label>
+        <div class="am-u-sm-9">
+            <input type="text" id="clubtime" value="@(ViewData["clubtime"])">
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-phone" class="am-u-sm-3 am-form-label">活动地点</label>
+        <div class="am-u-sm-9">
+            <input type="text" id="clubplace" value="@(ViewData["clubplace"])">
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-phone" class="am-u-sm-3 am-form-label">社团剩余经费</label>
+        <div class="am-u-sm-9">
+            <input disabled="disabled" type="text" id="lastmoney" value="@(ViewData["lastmoney"])">
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-phone" class="am-u-sm-3 am-form-label">预计经费</label>
+        <div class="am-u-sm-9">
+            <input type="tel" id="cluboption1" value="@(ViewData["money"])">
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-intro" class="am-u-sm-3 am-form-label">活动内容</label>
+        <div class="am-u-sm-9">
+            <textarea class="" rows="5" id="clubform">@(ViewData["clubform"])</textarea>
+        </div>
+    </div>
+    <div class="am-form-group">
+        <div class="am-u-sm-9 am-u-sm-push-3">
+            <button id="SaveBtn" type="button" class="am-btn am-btn-primary">保存</button>
+        </div>
+    </div>
+}
+
+

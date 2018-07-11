@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ClusDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sys_Function">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PID" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" />
+    <Property Name="Control" Type="nvarchar" MaxLength="100" />
+    <Property Name="functionname" Type="nvarchar" MaxLength="50" />
+    <Property Name="option1" Type="nvarchar" MaxLength="50" />
+    <Property Name="option2" Type="nvarchar" MaxLength="50" />
+    <Property Name="option3" Type="nvarchar" MaxLength="50" />
+    <Property Name="option4" Type="nvarchar" MaxLength="50" />
+    <Property Name="option5" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--生成过程中发现错误:
+警告 6002: 表/视图“ClusDB.dbo.sys_Role_Function”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+  <EntityType Name="sys_Role_Function">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+      <PropertyRef Name="Function_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="int" Nullable="false" />
+    <Property Name="Function_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="t_f_activity">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="club_ID" Type="int" />
+    <Property Name="finance_id" Type="int" />
+    <Property Name="tittle" Type="nvarchar" MaxLength="50" />
+    <Property Name="starttime" Type="datetime" />
+    <Property Name="place" Type="nvarchar" MaxLength="50" />
+    <Property Name="ac_form" Type="nvarchar" MaxLength="50" />
+    <Property Name="option1" Type="nvarchar" MaxLength="50" />
+    <Property Name="option2" Type="nvarchar" MaxLength="50" />
+    <Property Name="option3" Type="nvarchar" MaxLength="50" />
+    <Property Name="option4" Type="nvarchar" MaxLength="50" />
+    <Property Name="option5" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_f_finance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fi_type" Type="int" />
+    <Property Name="tittle" Type="nvarchar" MaxLength="50" />
+    <Property Name="price" Type="nvarchar" MaxLength="50" />
+    <Property Name="fi_time" Type="datetime" />
+    <Property Name="option1" Type="nvarchar" MaxLength="50" />
+    <Property Name="option2" Type="nvarchar" MaxLength="50" />
+    <Property Name="option3" Type="nvarchar" MaxLength="50" />
+    <Property Name="option4" Type="nvarchar" MaxLength="50" />
+    <Property Name="option5" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_f_meeting">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Club_ID" Type="int" />
+    <Property Name="Finance_ID" Type="int" />
+    <Property Name="Tittle" Type="nvarchar" MaxLength="50" />
+    <Property Name="StartTime" Type="datetime" />
+    <Property Name="Speaker" Type="nvarchar" MaxLength="50" />
+    <Property Name="joinman" Type="int" />
+    <Property Name="leaveman" Type="int" />
+    <Property Name="option1" Type="nvarchar" MaxLength="50" />
+    <Property Name="option2" Type="nvarchar" MaxLength="50" />
+    <Property Name="option3" Type="nvarchar" MaxLength="50" />
+    <Property Name="option4" Type="nvarchar" MaxLength="50" />
+    <Property Name="option5" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_f_news">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="EditTime" Type="datetime" />
+    <Property Name="isDel" Type="bit" />
+    <Property Name="attachment" Type="nvarchar" MaxLength="50" />
+    <Property Name="option1" Type="nvarchar" MaxLength="50" />
+    <Property Name="oprion2" Type="nvarchar" MaxLength="50" />
+    <Property Name="option3" Type="nvarchar" MaxLength="50" />
+    <Property Name="option4" Type="nvarchar" MaxLength="50" />
+    <Property Name="option5" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="t_f_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="option1" Type="nvarchar" MaxLength="100" />
+    <Property Name="option2" Type="nvarchar" MaxLength="100" />
+    <Property Name="option3" Type="nvarchar" MaxLength="100" />
+    <Property Name="option4" Type="nvarchar" MaxLength="100" />
+    <Property Name="option5" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="t_f_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HandNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="MobilePhone" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" />
+    <Property Name="JoinTime" Type="datetime" />
+    <Property Name="IsDelete" Type="bit" />
+    <Property Name="option1" Type="nvarchar" MaxLength="100" />
+    <Property Name="option2" Type="nvarchar" MaxLength="100" />
+    <Property Name="option3" Type="nvarchar" MaxLength="100" />
+    <Property Name="option4" Type="nvarchar" MaxLength="100" />
+    <Property Name="option5" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="t_f_User_Role">
+    <Key>
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="User_ID" Type="int" Nullable="false" />
+    <Property Name="Role_ID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="ClusDBModelStoreContainer">
+    <EntitySet Name="sys_Function" EntityType="Self.sys_Function" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_f_activity" EntityType="Self.t_f_activity" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_f_finance" EntityType="Self.t_f_finance" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_f_meeting" EntityType="Self.t_f_meeting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_f_news" EntityType="Self.t_f_news" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_f_Role" EntityType="Self.t_f_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_f_User" EntityType="Self.t_f_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="t_f_User_Role" EntityType="Self.t_f_User_Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sys_Role_Function" EntityType="Self.sys_Role_Function" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [sys_Role_Function].[Role_ID] AS [Role_ID], 
+    [sys_Role_Function].[Function_ID] AS [Function_ID]
+    FROM [dbo].[sys_Role_Function] AS [sys_Role_Function]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

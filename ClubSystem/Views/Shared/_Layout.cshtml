@@ -1,0 +1,150 @@
+﻿@using ClubSystem.Models;
+<!doctype html>
+<html>
+<head>
+    <title>学生社团管理系统</title>
+    <link href="../../Content/CSS/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../../Content/CSS/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="../../Content/CSS/flexslider.css" type="text/css" media="screen" />
+    <script src="../../Content/JS/jquery-1.11.1.min.js"></script>
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="../../Content/CSS/amazeui.min.css" />
+    <link rel="stylesheet" href="../../Content/CSS/admin.css">
+    <link rel="stylesheet" href="../../Content/CSS/app.css">
+    <script src="../../Content/JS/echarts.min.js"></script>
+    <script src="../../Content/JS/jquery.json-2.3.min.js"></script>
+    <script src="../../Content/JS/jquery.json-2.3.js"></script>
+
+</head>
+<body data-type="index">
+    <script type="text/javascript">
+        $(function () {
+            $('#loginout1').click(function () {
+                parent.location.href = "/Home/LogOff";
+            });
+        });
+    </script>
+
+    <header class="am-topbar am-topbar-inverse admin-header">
+        <div class="am-topbar-brand">
+            <a href="javascript:;" class="tpl-logo">
+                <img src="../../Content/PIC/logo.png" alt="">
+            </a>
+        </div>
+        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
+
+        </div>
+
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
+
+                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+
+                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
+                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
+                        <span class="tpl-header-list-user-nick">@((Session["user"] as ClubSystem.Models.t_f_User).Name)</span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
+                        <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+                        <li><a id="loginout" href="#"><span class="am-icon-power-off"></span> 退出</a></li>
+                    </ul>
+                </li>
+                <li><a href="###" class="tpl-header-list-   
+                        link"><span id="loginout1" class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="tpl-page-container tpl-page-header-fixed">
+
+        <div class="tpl-left-nav tpl-left-nav-hover">
+            <div class="tpl-left-nav-title">
+                Just Do Something!
+            </div>
+            <div class="tpl-left-nav-list">
+                <ul class="tpl-left-nav-menu">
+
+                    @{if (SystemParam.CurrentUser != null)
+                    {
+                        var db = new ClusDBEntities();
+
+                        decimal userid = SystemParam.CurrentUser.ID;
+
+                        decimal rid = 0, rid1 = 0;
+
+                        if (db.t_f_User_Role.FirstOrDefault(s => s.User_ID == userid) != null)
+
+                        { rid1 = db.t_f_User_Role.FirstOrDefault(s => s.User_ID == userid).Role_ID; }
+
+                        rid = rid1;
+
+                        var root = (from e in db.sys_Role_Function
+                                    join o in db.sys_Function on e.Function_ID equals o.ID
+                                    where e.Role_ID == rid && o.PID == 0
+                                    select new
+                                    {
+                                        o.ID,
+                                        o.Name,
+                                        o.option1
+                                    }).Distinct().OrderBy(ob => ob.ID);
+
+                        foreach (var p in root)
+                        {
+                            <li class="tpl-left-nav-item" style="">
+                                <a href="javascript:void(0)" class="nav-link tpl-left-nav-link-list">
+                                    <i class="am-icon-heart"></i>
+                                    <span>@(p.Name)</span>
+                                </a>
+                                <ul class="tpl-left-nav-sub-menu" style="display:inline">
+
+                                    @{
+                            var chid = from e in db.sys_Role_Function
+                                       join o in db.sys_Function on e.Function_ID equals o.ID
+                                       where e.Role_ID == rid && o.PID == p.ID
+                                       select o;
+                                    }
+                                    @foreach (var c in chid.OrderBy(o => o.option1))
+                                    {
+                                        <li>
+                                            <a href="@(string.Format("/{0}/{1}", c.Control, c.functionname))">
+                                                <i class="am-icon-angle-right"></i>
+                                                <span>@(c.Name)</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+
+                            </li>
+                        }
+
+                    }
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="tpl-content-wrapper">
+            <div class="tpl-content-page-title">
+            </div>
+            <div class="tpl-portlet-components">
+                <div class="tpl-block ">
+                    <div class="am-g tpl-amazeui-form">
+                        <div class="am-u-sm-12 am-u-md-9" style="width:100%">
+                            <div class="am-form am-form-horizontal">
+                               @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        
+    </div>
+</body>
+</html>
+<script src="../../Content/JS/app.js"></script>

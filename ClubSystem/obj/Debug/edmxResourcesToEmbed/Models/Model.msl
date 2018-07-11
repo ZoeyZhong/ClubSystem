@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ClusDBModelStoreContainer" CdmEntityContainer="ClusDBEntities">
+    <EntitySetMapping Name="sys_Function">
+      <EntityTypeMapping TypeName="ClusDBModel.sys_Function">
+        <MappingFragment StoreEntitySet="sys_Function">
+          <ScalarProperty Name="option5" ColumnName="option5" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="option2" ColumnName="option2" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="functionname" ColumnName="functionname" />
+          <ScalarProperty Name="Control" ColumnName="Control" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PID" ColumnName="PID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_f_activity">
+      <EntityTypeMapping TypeName="ClusDBModel.t_f_activity">
+        <MappingFragment StoreEntitySet="t_f_activity">
+          <ScalarProperty Name="option5" ColumnName="option5" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="option2" ColumnName="option2" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="ac_form" ColumnName="ac_form" />
+          <ScalarProperty Name="place" ColumnName="place" />
+          <ScalarProperty Name="starttime" ColumnName="starttime" />
+          <ScalarProperty Name="tittle" ColumnName="tittle" />
+          <ScalarProperty Name="finance_id" ColumnName="finance_id" />
+          <ScalarProperty Name="club_ID" ColumnName="club_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_f_finance">
+      <EntityTypeMapping TypeName="ClusDBModel.t_f_finance">
+        <MappingFragment StoreEntitySet="t_f_finance">
+          <ScalarProperty Name="option5" ColumnName="option5" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="option2" ColumnName="option2" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="fi_time" ColumnName="fi_time" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="tittle" ColumnName="tittle" />
+          <ScalarProperty Name="fi_type" ColumnName="fi_type" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_f_meeting">
+      <EntityTypeMapping TypeName="ClusDBModel.t_f_meeting">
+        <MappingFragment StoreEntitySet="t_f_meeting">
+          <ScalarProperty Name="option5" ColumnName="option5" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="option2" ColumnName="option2" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="leaveman" ColumnName="leaveman" />
+          <ScalarProperty Name="joinman" ColumnName="joinman" />
+          <ScalarProperty Name="Speaker" ColumnName="Speaker" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Tittle" ColumnName="Tittle" />
+          <ScalarProperty Name="Finance_ID" ColumnName="Finance_ID" />
+          <ScalarProperty Name="Club_ID" ColumnName="Club_ID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_f_news">
+      <EntityTypeMapping TypeName="ClusDBModel.t_f_news">
+        <MappingFragment StoreEntitySet="t_f_news">
+          <ScalarProperty Name="option5" ColumnName="option5" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="oprion2" ColumnName="oprion2" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="attachment" ColumnName="attachment" />
+          <ScalarProperty Name="isDel" ColumnName="isDel" />
+          <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_f_Role">
+      <EntityTypeMapping TypeName="ClusDBModel.t_f_Role">
+        <MappingFragment StoreEntitySet="t_f_Role">
+          <ScalarProperty Name="option5" ColumnName="option5" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="option2" ColumnName="option2" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_f_User">
+      <EntityTypeMapping TypeName="ClusDBModel.t_f_User">
+        <MappingFragment StoreEntitySet="t_f_User">
+          <ScalarProperty Name="option5" ColumnName="option5" />
+          <ScalarProperty Name="option4" ColumnName="option4" />
+          <ScalarProperty Name="option3" ColumnName="option3" />
+          <ScalarProperty Name="option2" ColumnName="option2" />
+          <ScalarProperty Name="option1" ColumnName="option1" />
+          <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+          <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HandNo" ColumnName="HandNo" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_f_User_Role">
+      <EntityTypeMapping TypeName="ClusDBModel.t_f_User_Role">
+        <MappingFragment StoreEntitySet="t_f_User_Role">
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+          <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sys_Role_Function">
+      <EntityTypeMapping TypeName="ClusDBModel.sys_Role_Function">
+        <MappingFragment StoreEntitySet="sys_Role_Function">
+          <ScalarProperty Name="Function_ID" ColumnName="Function_ID" />
+          <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

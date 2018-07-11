@@ -1,0 +1,127 @@
+﻿@using ClubSystem.Models;
+@{
+    ViewBag.Title = "NewsList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    function Edit_news(newsid) {
+        window.location.href = "/Information/EditNews?id=" + newsid;
+    }
+
+    function Delete_news(newsid) {
+        if (confirm('确认删除?')) {
+            $.post("/Information/DeleteNews/", "id=" + newsid, function (result) {
+                if (result.Total > 0) {
+                    history.go(0);
+                    alert("删除成功！");
+                    griddata.dataBind(result.Data);
+                    setInterval(displaymessage, 3000);
+                }
+                else {
+                    alert("删除失败！");
+                }
+
+            });
+        }
+    }
+</script>
+
+<link rel="stylesheet" type="text/css" href="../../Content/metronic/assets/global/css/components-rounded.css">
+
+
+                        <!-- BEGIN 数据查询-->
+                        <div class="portlet box green-meadow">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="am-icon-filter"></i>
+                                    新闻列表
+                                </div>
+                                <div class="tools">
+                                    <button type="button" onclick="Add()" class="btn btn-circle btn-sm green-meadow">
+                                        <i class="am-icon-plus"></i>
+                                        新增
+                                    </button>
+                                    <button type="button" onclick="EditView()" class="btn btn-circle btn-sm green-meadow">
+                                        <i class="am-icon-pencil"></i>
+                                        修改
+                                    </button>
+                                    <button type="button" onclick="EditView('view')" class="btn btn-circle btn-sm green-meadow">
+                                        <i class="am-icon-table"></i>
+                                        查看
+                                    </button>
+                                    <button type="button" onclick="Delete()" class="btn btn-circle btn-sm green-meadow">
+                                        <i class="am-icon-minus"></i>
+                                        删除
+                                    </button>
+                                    <button type="button" onclick="Refresh()" class="btn btn-circle btn-sm green-meadow" data-toggle="modal">
+                                        <i class="am-icon-refresh"></i>
+                                        刷新
+                                    </button>
+                                    <button type="button" class="fullscreen btn btn-circle btn-sm green-meadow" data-original-title="全屏">
+                                        <i class="am-icon-fullscreen"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="portlet-body flip-scroll">
+                                <div class="portlet-body">
+                                    @*<div>
+                                        <span>共有记录：</span><span id='totalCount' class="label label-success">0</span>条。
+                                    </div>*@
+                                    <hr />
+                                    <table id="grid" class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                                        <thead id="grid_head">
+                                            <tr>
+                                                <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                                <th>标题</th>
+                                                <th>编辑时间</th>
+
+                                                <th style="width:90px">操作</th>
+                                            </tr>
+                                            @{
+                                                if (true)
+                                                {
+                                                    var db = new ClusDBEntities();
+                                                    var root = (from a in db.t_f_news
+                                                                where a.isDel == false
+                                                                select new
+                                                                {
+                                                                    newsid = a.ID,
+                                                                    Title = a.Title,
+                                                                    EditTime = a.EditTime,
+                                                                }).Distinct().OrderByDescending(ob => ob.newsid).Take(50).ToList();
+                                                    foreach (var p in root)
+                                                    {
+                                                        <tr>
+                                                            <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                                            <th><a onclick="newsback(@(p.newsid))">@(p.Title)</a></th>
+                                                            <th>@(p.EditTime)</th>
+                                                            <th style="width:90px"><a onclick="Edit_news(@(p.newsid))"><i class="am-icon-pencil"></i></a>&nbsp;&nbsp;<a onclick="Delete_news(@(p.newsid))"><i class="am-icon-close"></i></a></th>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+                                        </thead>
+                                        <tbody id="grid_body"></tbody>
+                                    </table>
+                                    <div class="paging-toolbar">
+                                        <ul id='grid_paging'></ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END 数据查询-->
+
+<script type="text/javascript">
+    function newsback(id) {
+        if (id == "") {
+            return;
+        }
+        else {
+            window.location.href = "/Information/NewsContent?id=" + id;
+        }
+    }
+</script>
+
+
+

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ClusDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ClusDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sys_Function" EntityType="ClusDBModel.sys_Function" />
+    <EntitySet Name="t_f_activity" EntityType="ClusDBModel.t_f_activity" />
+    <EntitySet Name="t_f_finance" EntityType="ClusDBModel.t_f_finance" />
+    <EntitySet Name="t_f_meeting" EntityType="ClusDBModel.t_f_meeting" />
+    <EntitySet Name="t_f_news" EntityType="ClusDBModel.t_f_news" />
+    <EntitySet Name="t_f_Role" EntityType="ClusDBModel.t_f_Role" />
+    <EntitySet Name="t_f_User" EntityType="ClusDBModel.t_f_User" />
+    <EntitySet Name="t_f_User_Role" EntityType="ClusDBModel.t_f_User_Role" />
+    <EntitySet Name="sys_Role_Function" EntityType="ClusDBModel.sys_Role_Function" />
+  </EntityContainer>
+  <EntityType Name="sys_Function">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PID" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Control" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="functionname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="t_f_activity">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="club_ID" Type="Int32" />
+    <Property Name="finance_id" Type="Int32" />
+    <Property Name="tittle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="starttime" Type="DateTime" Precision="3" />
+    <Property Name="place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ac_form" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="t_f_finance">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fi_type" Type="Int32" />
+    <Property Name="tittle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="fi_time" Type="DateTime" Precision="3" />
+    <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="t_f_meeting">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Club_ID" Type="Int32" />
+    <Property Name="Finance_ID" Type="Int32" />
+    <Property Name="Tittle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StartTime" Type="DateTime" Precision="3" />
+    <Property Name="Speaker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="joinman" Type="Int32" />
+    <Property Name="leaveman" Type="Int32" />
+    <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="t_f_news">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EditTime" Type="DateTime" Precision="3" />
+    <Property Name="isDel" Type="Boolean" />
+    <Property Name="attachment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="oprion2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="t_f_Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="t_f_User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HandNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="JoinTime" Type="DateTime" Precision="3" />
+    <Property Name="IsDelete" Type="Boolean" />
+    <Property Name="option1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="option5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="t_f_User_Role">
+    <Key>
+      <PropertyRef Name="User_ID" />
+    </Key>
+    <Property Name="User_ID" Type="Int32" Nullable="false" />
+    <Property Name="Role_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sys_Role_Function">
+    <Key>
+      <PropertyRef Name="Role_ID" />
+      <PropertyRef Name="Function_ID" />
+    </Key>
+    <Property Name="Role_ID" Type="Int32" Nullable="false" />
+    <Property Name="Function_ID" Type="Int32" Nullable="false" />
+  </EntityType>
+</Schema>

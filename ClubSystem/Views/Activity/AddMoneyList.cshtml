@@ -1,0 +1,141 @@
+﻿@using ClubSystem.Models;
+@{
+    ViewBag.Title = "AddMoneyList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/ajaxfileupload.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#btnReturn").click(function () {
+            history.go(-1);
+        });
+        $("#PassClub").click(function () {
+            if ($("#factmoney").val() == "") {
+                alert("请填写实际消费金额！");
+                return;
+            }
+            if ($("#com_content").val() == "") {
+                alert("请上传消费详情！");
+                return;
+            }
+            if (!confirm("您确认要提交吗？")) {
+                return;
+            }
+            var article = GetArticle();
+            $.ajax({
+                type: "POST",
+                contentType: "application/json;utf-8",
+                url: "/Activity/SaveUMoney",
+                data: "{json:'" + $.toJSON(article) + "'}",
+                dataType: "",
+                success: function (data, textStatus) {
+                    if (data == "success") {
+                        alert("保存成功！");
+                        window.location.href = "/Activity/UserAcList";
+                    }
+                    else {
+                        alert("保存失败！");
+                    }
+                },
+                complete: function (XMLHttpRequest, textStatus) {
+                    //HideLoading();
+                },
+                error: function (statusText, responseText) {
+                    //请求出错处理
+                    alert(statusText.responseText);
+                }
+            });
+        });
+    });
+    // 获取所有信息
+    function GetArticle() {
+        var article = new Object();
+        article.clubid = $("#clubid").val();
+        article.factmoney = $("#factmoney").val();
+        article.com_content = $("#com_content").val();
+        return article;
+    }
+</script>
+@using (Html.BeginForm("AddMoneyList", "Activity", FormMethod.Post))
+{
+    <div class="am-g">
+        <div class="am-u-sm-12 am-u-md-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button id="btnReturn" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-arrow-left"></span> 返回</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--搜索栏start-->
+    <div class="portlet-title">
+        <div class="tpl-portlet-input tpl-fz-ml">
+            <div class="portlet-input input-small input-inline">
+                <div class="input-icon right">
+                    <i class="am-icon-search"></i>
+                    <input type="text" class="form-control form-control-solid" placeholder="搜索...">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--搜索栏end-->
+    <div class="am-form-group">
+        <label for="user-name" class="am-u-sm-3 am-form-label">活动主题</label>
+        <div class="am-u-sm-9">
+            <input style=" display:none;" type="text" id="clubid" value="@(ViewData["acid1"])">
+            <input disabled="disabled" type="text" id="clubtittle" value="@(ViewData["actittle1"])">
+            <small></small>
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-phone" class="am-u-sm-3 am-form-label">预计经费</label>
+        <div class="am-u-sm-9">
+            <input disabled="disabled" type="tel" id="money" value="@(ViewData["money1"])">
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-phone" class="am-u-sm-3 am-form-label">实际消费金额</label>
+        <div class="am-u-sm-9">
+            <input type="text" id="factmoney" value="">
+        </div>
+    </div>
+    <div class="am-form-group">
+        <label for="user-phone" class="am-u-sm-3 am-form-label">消费详情</label>
+        <div class="am-u-sm-9">
+            <input id="com_content" type="text" value="" placeholder="上传格式名称要求：活动日期-活动名称-活动社团（文件格式必须是excel格式）" />
+            <div>
+                <input id="file_upload" type="file" name="file_upload" />
+                <button id="upload" type="button" onclick="Upload()"> 上传文件</button><a style="float:right" href="~/Upload/案例.xlsx">上传文件格式说明</a>
+            </div>
+        </div>
+    </div>
+    <div class="am-form-group">
+        <div class="am-u-sm-9 am-u-sm-push-3">
+            <button id="PassClub" type="button" class="am-btn am-btn-primary">提交</button>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+    function Upload() {
+        $.ajaxFileUpload({
+            url: '/Activity/File_Save',
+            secureuri: false,
+            fileElementId: 'file_upload',
+            dataType: 'Json',
+            data: {},
+            success: function (data, status) {
+                var args = data.split("|");
+                if (args[0] == "1") {
+                    $("#com_content").val(args[1]);
+                    alert(agrs[2]);
+                } else {
+                    alert("上传失败!");
+                }
+            },
+            error: function (data, status, e) {
+                alert(e);
+            }
+        });
+    }
+</script>
+

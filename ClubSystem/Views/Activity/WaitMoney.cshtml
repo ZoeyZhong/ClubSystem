@@ -1,0 +1,118 @@
+﻿@using ClubSystem.Models;
+@{
+    ViewBag.Title = "WaitMoney";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="../../Content/metronic/assets/global/css/components-rounded.css">
+
+<!-- BEGIN 数据查询-->
+<div class="portlet box green-meadow">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="am-icon-filter"></i>
+            待转账活动列表
+        </div>
+    </div>
+
+    <div class="portlet-body flip-scroll">
+        <div class="portlet-body">
+            <hr />
+            <!--待转账-->
+            <table class="table table-striped table-bordered table-hover" cellpadding="0" cellspacing="0" border="0" class="display" width="100%">
+                <thead id="grid_head">
+                    <tr>
+                        <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                        <th>活动主题</th>
+                        <th>消费金额</th>
+                        <th>消费详情</th>
+                        <th>支付宝账号</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    @{
+                        if (true)
+                        {
+                            var db = new ClusDBEntities();
+                            var root = (from a in db.t_f_activity
+                                        join b in db.t_f_User on a.club_ID equals b.ID
+                                        join c in db.t_f_finance on a.ID equals c.fi_type
+                                        where a.option3 == "待转账"
+                                        select new
+                                        {
+                                            moneyid = c.ID,
+                                            acid = a.ID,//活动ID
+                                            actittle = a.tittle,//活动主题
+                                            price = c.price,//消费金额
+                                            title = c.tittle,//消费详情
+                                            phone = b.MobilePhone,//支付宝账号
+                                            option3 = a.option3,//活动状态
+                                        }).Distinct().OrderBy(ob => ob.moneyid).Take(50).ToList();
+                            foreach (var p in root)
+                            {
+                                <tr>
+                                    <th class="table-checkbox" style="width:40px"><input class="group-checkable" type="checkbox" onclick="selectAll(this)"></th>
+                                    <th>@(p.actittle)</th>
+                                    <th>@(p.price)</th>
+                                    <th><div><a href="~/@(p.title)">下载详情</a></div></th>
+                                    <th>@(p.phone)</th>
+                                    <th>@(p.option3)</th>
+                                    <th style="width:90px">
+                                        <a title="已转账" onclick="Had_Money(@(p.acid))">
+                                            <i class="am-icon-cny"></i>
+                                        </a>&nbsp;&nbsp;
+                                        <a title="驳回" onclick="Back_Money(@(p.acid))">
+                                            <i class="am-icon-reply"></i>
+                                        </a>
+                                    </th>
+                                </tr>
+                            }
+                        }
+                    }
+                </thead>
+                <tbody id="grid_body"></tbody>
+            </table>
+            <div class="paging-toolbar">
+                <ul id='grid_paging'></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END 数据查询-->
+
+<script type="text/javascript">
+    //已转账
+    function Had_Money(id)
+    {
+        $.post("/Activity/HadMoney/?clubid=" + id,
+                                                 function (result) {
+                                                     if (result.IsSucceed) {
+
+                                                         alert("提交成功！");
+                                                         window.location.href = "/Activity/WaitMoney";
+                                                     }
+                                                     else {
+                                                         alert("服务器连接有误！！");
+                                                     }
+
+                                                 });
+    }
+    //转账驳回
+    function Back_Money(id)
+    {
+        var str = prompt("审核未通过原因");
+        $.post("/Activity/BackMoney/?clubid=" + id+ "&str="+str,
+                                             function (result) {
+                                                 if (result.IsSucceed) {
+                                                     alert("提交成功！");
+                                                     window.location.href = "/Activity/WaitMoney";
+                                                 }
+                                                 else {
+                                                     alert("服务器连接有误！！");
+                                                 }
+
+                                             });
+    }
+</script>
+
+

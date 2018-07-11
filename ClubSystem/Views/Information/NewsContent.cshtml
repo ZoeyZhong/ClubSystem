@@ -1,0 +1,52 @@
+﻿@using ClubSystem.Models;
+@{
+    ViewBag.Title = "NewsContent";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+    $(function () {
+
+        $("#btnReturn").click(function () {
+            history.go(-1);
+        });
+    });
+</script>
+@using (Html.BeginForm("NewsContent", "Information", FormMethod.Post))
+{
+
+            <div class="tpl-block">
+                <div class="am-g">
+                    <div class="am-u-sm-12 am-u-md-6">
+                        <div class="am-btn-toolbar">
+                            <div class="am-btn-group am-btn-group-xs">
+                                <button id="btnReturn" type="button" class="am-btn am-btn-default am-btn-success"><span class="am-icon-arrow-left"></span> 返回</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portlet-title">                </div>
+                <div class="am-g">
+                    <div class="am-u-sm-12">
+                        <form class="am-form">
+                            <div class="am-u-sm-12">
+                                <div class="am-form-group" style="text-align: center">
+                                    @ViewData["TTitle"]
+                                </div>
+                                <div class="am-form-group">
+                                    <label for="user-name" class="am-u-sm-9 am-form-label">日期：</label>@ViewData["endtime"]
+                                </div>
+                                <div class="am-form-group">
+                                    @Html.Raw(@ViewData["content"])
+
+                                </div>
+                            </div>
+
+                            <hr>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+}

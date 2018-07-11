@@ -1,0 +1,66 @@
+﻿@using ClubSystem.Models;
+@{
+    ViewBag.Title = "Newss";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="am-table am-table-striped am-table-hover table-main">
+    <thead>
+        <tr>
+            <th class="table-id" style="display:none">ID</th>
+            <th class="table-date am-hide-sm-only">日期</th>
+            <th class="table-title">内容</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            decimal userid = SystemParam.CurrentUser.ID;
+            if (true)
+            {
+                var db = new ClusDBEntities();
+                var root = (from a in db.t_f_news
+                            where a.isDel == false
+                            select new
+                            {
+                                did = a.ID,
+                                tittle = a.Title,
+                                endtime = a.EditTime
+                            }).Distinct().OrderByDescending(ob => ob.did).Take(50).ToList();
+                foreach (var p in root)
+                {
+                    <tr>
+                        <td style="display:none">@(p.did)</td>
+                        
+                        <td><a onclick="newsback(@p.did)">@(p.tittle)</a></td>
+                        <td class="am-hide-sm-only">@(p.endtime)</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<div class="am-cf">
+    <div class="am-fr">
+        <ul class="am-pagination tpl-pagination">
+            <li class="am-disabled"><a href="#">«</a></li>
+            <li class="am-active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
+</div>
+<hr>
+<script type="text/javascript">
+    function newsback(id) {
+        if (id == "") {
+            return;
+        }
+        else {
+            window.location.href = "/Information/NewsContent?id=" + id;
+        }
+    }
+</script>
+

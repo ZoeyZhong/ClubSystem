@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Content/ueditor/ueditor.config.js"></script>
+<script src="~/Content/ueditor/ueditor.all.js"></script>
+<link href="~/Content/ueditor/themes/iframe.css" rel="stylesheet" />
+<script src="~/Content/ueditor/lang/zh-cn/zh-cn.js"></script>
+<script type="text/javascript">
+    var editor = new baidu.editor.ui.Editor({
+        UEDITOR_HOME_URL: '/Content/ueditor/',//配置编辑器路径
+        iframeCssUrl: '/Content/ueditor/themes/iframe.css',//样式路径
+        initialContent: '请填写内容,并设定标题 ',//初始化编辑器内容
+        autoHeightEnabled: true,//高度自动增长
+        minFrameHeight: 400//最小高度
+    });
+    editor.render('editor');
+</script>
+@using (Html.BeginForm("Index", "Information", FormMethod.Post))
+{
+    <br />
+    <div class="am-form-group">
+        <label for="user-name" class="am-u-sm-1">标题：</label>
+        <div class="am-u-sm-11">
+            <input id="title" name="title" type="text" placeholder="请输入标题！" value="">
+            <small></small>
+            <div style="background:yellow ">@ViewData["back_news"]</div>
+        </div>
+    </div>
+
+    <textarea style="width:100%;height:400px" id="editor" name="editor"></textarea>
+    <input type="submit" class="am-btn am-btn-primary" onclick="BackTitle()" value="提交" />
+
+}
+
+
+

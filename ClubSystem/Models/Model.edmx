@@ -1,0 +1,456 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ClusDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sys_Function">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PID" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Control" Type="nvarchar" MaxLength="100" />
+          <Property Name="functionname" Type="nvarchar" MaxLength="50" />
+          <Property Name="option1" Type="nvarchar" MaxLength="50" />
+          <Property Name="option2" Type="nvarchar" MaxLength="50" />
+          <Property Name="option3" Type="nvarchar" MaxLength="50" />
+          <Property Name="option4" Type="nvarchar" MaxLength="50" />
+          <Property Name="option5" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“ClusDB.dbo.sys_Role_Function”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="sys_Role_Function">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+            <PropertyRef Name="Function_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="int" Nullable="false" />
+          <Property Name="Function_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_f_activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="club_ID" Type="int" />
+          <Property Name="finance_id" Type="int" />
+          <Property Name="tittle" Type="nvarchar" MaxLength="50" />
+          <Property Name="starttime" Type="datetime" />
+          <Property Name="place" Type="nvarchar" MaxLength="50" />
+          <Property Name="ac_form" Type="nvarchar" MaxLength="50" />
+          <Property Name="option1" Type="nvarchar" MaxLength="50" />
+          <Property Name="option2" Type="nvarchar" MaxLength="50" />
+          <Property Name="option3" Type="nvarchar" MaxLength="50" />
+          <Property Name="option4" Type="nvarchar" MaxLength="50" />
+          <Property Name="option5" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_f_finance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fi_type" Type="int" />
+          <Property Name="tittle" Type="nvarchar" MaxLength="50" />
+          <Property Name="price" Type="nvarchar" MaxLength="50" />
+          <Property Name="fi_time" Type="datetime" />
+          <Property Name="option1" Type="nvarchar" MaxLength="50" />
+          <Property Name="option2" Type="nvarchar" MaxLength="50" />
+          <Property Name="option3" Type="nvarchar" MaxLength="50" />
+          <Property Name="option4" Type="nvarchar" MaxLength="50" />
+          <Property Name="option5" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_f_meeting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Club_ID" Type="int" />
+          <Property Name="Finance_ID" Type="int" />
+          <Property Name="Tittle" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartTime" Type="datetime" />
+          <Property Name="Speaker" Type="nvarchar" MaxLength="50" />
+          <Property Name="joinman" Type="int" />
+          <Property Name="leaveman" Type="int" />
+          <Property Name="option1" Type="nvarchar" MaxLength="50" />
+          <Property Name="option2" Type="nvarchar" MaxLength="50" />
+          <Property Name="option3" Type="nvarchar" MaxLength="50" />
+          <Property Name="option4" Type="nvarchar" MaxLength="50" />
+          <Property Name="option5" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_f_news">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="Content" Type="nvarchar(max)" />
+          <Property Name="EditTime" Type="datetime" />
+          <Property Name="isDel" Type="bit" />
+          <Property Name="attachment" Type="nvarchar" MaxLength="50" />
+          <Property Name="option1" Type="nvarchar" MaxLength="50" />
+          <Property Name="oprion2" Type="nvarchar" MaxLength="50" />
+          <Property Name="option3" Type="nvarchar" MaxLength="50" />
+          <Property Name="option4" Type="nvarchar" MaxLength="50" />
+          <Property Name="option5" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="t_f_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="option1" Type="nvarchar" MaxLength="100" />
+          <Property Name="option2" Type="nvarchar" MaxLength="100" />
+          <Property Name="option3" Type="nvarchar" MaxLength="100" />
+          <Property Name="option4" Type="nvarchar" MaxLength="100" />
+          <Property Name="option5" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="t_f_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HandNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MobilePhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="JoinTime" Type="datetime" />
+          <Property Name="IsDelete" Type="bit" />
+          <Property Name="option1" Type="nvarchar" MaxLength="100" />
+          <Property Name="option2" Type="nvarchar" MaxLength="100" />
+          <Property Name="option3" Type="nvarchar" MaxLength="100" />
+          <Property Name="option4" Type="nvarchar" MaxLength="100" />
+          <Property Name="option5" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="t_f_User_Role">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="int" Nullable="false" />
+          <Property Name="Role_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ClusDBModelStoreContainer">
+          <EntitySet Name="sys_Function" EntityType="Self.sys_Function" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_f_activity" EntityType="Self.t_f_activity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_f_finance" EntityType="Self.t_f_finance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_f_meeting" EntityType="Self.t_f_meeting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_f_news" EntityType="Self.t_f_news" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_f_Role" EntityType="Self.t_f_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_f_User" EntityType="Self.t_f_User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_f_User_Role" EntityType="Self.t_f_User_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sys_Role_Function" EntityType="Self.sys_Role_Function" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [sys_Role_Function].[Role_ID] AS [Role_ID], 
+    [sys_Role_Function].[Function_ID] AS [Function_ID]
+    FROM [dbo].[sys_Role_Function] AS [sys_Role_Function]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ClusDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ClusDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sys_Function" EntityType="ClusDBModel.sys_Function" />
+          <EntitySet Name="t_f_activity" EntityType="ClusDBModel.t_f_activity" />
+          <EntitySet Name="t_f_finance" EntityType="ClusDBModel.t_f_finance" />
+          <EntitySet Name="t_f_meeting" EntityType="ClusDBModel.t_f_meeting" />
+          <EntitySet Name="t_f_news" EntityType="ClusDBModel.t_f_news" />
+          <EntitySet Name="t_f_Role" EntityType="ClusDBModel.t_f_Role" />
+          <EntitySet Name="t_f_User" EntityType="ClusDBModel.t_f_User" />
+          <EntitySet Name="t_f_User_Role" EntityType="ClusDBModel.t_f_User_Role" />
+          <EntitySet Name="sys_Role_Function" EntityType="ClusDBModel.sys_Role_Function" />
+        </EntityContainer>
+        <EntityType Name="sys_Function">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PID" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Control" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="functionname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_f_activity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="club_ID" Type="Int32" />
+          <Property Name="finance_id" Type="Int32" />
+          <Property Name="tittle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="starttime" Type="DateTime" Precision="3" />
+          <Property Name="place" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ac_form" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_f_finance">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fi_type" Type="Int32" />
+          <Property Name="tittle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="price" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fi_time" Type="DateTime" Precision="3" />
+          <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_f_meeting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Club_ID" Type="Int32" />
+          <Property Name="Finance_ID" Type="Int32" />
+          <Property Name="Tittle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StartTime" Type="DateTime" Precision="3" />
+          <Property Name="Speaker" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="joinman" Type="Int32" />
+          <Property Name="leaveman" Type="Int32" />
+          <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_f_news">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EditTime" Type="DateTime" Precision="3" />
+          <Property Name="isDel" Type="Boolean" />
+          <Property Name="attachment" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="oprion2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option4" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="option5" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_f_Role">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_f_User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HandNo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MobilePhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="JoinTime" Type="DateTime" Precision="3" />
+          <Property Name="IsDelete" Type="Boolean" />
+          <Property Name="option1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="option5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="t_f_User_Role">
+          <Key>
+            <PropertyRef Name="User_ID" />
+          </Key>
+          <Property Name="User_ID" Type="Int32" Nullable="false" />
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sys_Role_Function">
+          <Key>
+            <PropertyRef Name="Role_ID" />
+            <PropertyRef Name="Function_ID" />
+          </Key>
+          <Property Name="Role_ID" Type="Int32" Nullable="false" />
+          <Property Name="Function_ID" Type="Int32" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ClusDBModelStoreContainer" CdmEntityContainer="ClusDBEntities">
+          <EntitySetMapping Name="sys_Function">
+            <EntityTypeMapping TypeName="ClusDBModel.sys_Function">
+              <MappingFragment StoreEntitySet="sys_Function">
+                <ScalarProperty Name="option5" ColumnName="option5" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="functionname" ColumnName="functionname" />
+                <ScalarProperty Name="Control" ColumnName="Control" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PID" ColumnName="PID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_f_activity">
+            <EntityTypeMapping TypeName="ClusDBModel.t_f_activity">
+              <MappingFragment StoreEntitySet="t_f_activity">
+                <ScalarProperty Name="option5" ColumnName="option5" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="ac_form" ColumnName="ac_form" />
+                <ScalarProperty Name="place" ColumnName="place" />
+                <ScalarProperty Name="starttime" ColumnName="starttime" />
+                <ScalarProperty Name="tittle" ColumnName="tittle" />
+                <ScalarProperty Name="finance_id" ColumnName="finance_id" />
+                <ScalarProperty Name="club_ID" ColumnName="club_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_f_finance">
+            <EntityTypeMapping TypeName="ClusDBModel.t_f_finance">
+              <MappingFragment StoreEntitySet="t_f_finance">
+                <ScalarProperty Name="option5" ColumnName="option5" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="fi_time" ColumnName="fi_time" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="tittle" ColumnName="tittle" />
+                <ScalarProperty Name="fi_type" ColumnName="fi_type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_f_meeting">
+            <EntityTypeMapping TypeName="ClusDBModel.t_f_meeting">
+              <MappingFragment StoreEntitySet="t_f_meeting">
+                <ScalarProperty Name="option5" ColumnName="option5" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="leaveman" ColumnName="leaveman" />
+                <ScalarProperty Name="joinman" ColumnName="joinman" />
+                <ScalarProperty Name="Speaker" ColumnName="Speaker" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Tittle" ColumnName="Tittle" />
+                <ScalarProperty Name="Finance_ID" ColumnName="Finance_ID" />
+                <ScalarProperty Name="Club_ID" ColumnName="Club_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_f_news">
+            <EntityTypeMapping TypeName="ClusDBModel.t_f_news">
+              <MappingFragment StoreEntitySet="t_f_news">
+                <ScalarProperty Name="option5" ColumnName="option5" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="oprion2" ColumnName="oprion2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="attachment" ColumnName="attachment" />
+                <ScalarProperty Name="isDel" ColumnName="isDel" />
+                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_f_Role">
+            <EntityTypeMapping TypeName="ClusDBModel.t_f_Role">
+              <MappingFragment StoreEntitySet="t_f_Role">
+                <ScalarProperty Name="option5" ColumnName="option5" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_f_User">
+            <EntityTypeMapping TypeName="ClusDBModel.t_f_User">
+              <MappingFragment StoreEntitySet="t_f_User">
+                <ScalarProperty Name="option5" ColumnName="option5" />
+                <ScalarProperty Name="option4" ColumnName="option4" />
+                <ScalarProperty Name="option3" ColumnName="option3" />
+                <ScalarProperty Name="option2" ColumnName="option2" />
+                <ScalarProperty Name="option1" ColumnName="option1" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="JoinTime" ColumnName="JoinTime" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="MobilePhone" ColumnName="MobilePhone" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HandNo" ColumnName="HandNo" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_f_User_Role">
+            <EntityTypeMapping TypeName="ClusDBModel.t_f_User_Role">
+              <MappingFragment StoreEntitySet="t_f_User_Role">
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+                <ScalarProperty Name="User_ID" ColumnName="User_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sys_Role_Function">
+            <EntityTypeMapping TypeName="ClusDBModel.sys_Role_Function">
+              <MappingFragment StoreEntitySet="sys_Role_Function">
+                <ScalarProperty Name="Function_ID" ColumnName="Function_ID" />
+                <ScalarProperty Name="Role_ID" ColumnName="Role_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
